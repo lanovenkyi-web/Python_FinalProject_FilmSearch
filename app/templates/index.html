@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="genres-ribbon">
+    {% if return_categories %}
+        {% for g in return_categories %}
+            <a class="genre-card" href="/genre/{{ g[0] }}?page=1&year_from={{ g[2] }}&year_to={{ g[3] }}">
+                <div class="genre-name">{{ g[0] }}</div>
+                <div class="genre-meta">Фильмов: {{ g[1] }} • <span class="genre-years">{{ g[2] }}—{{ g[3] }}</span></div>
+            </a>
+        {% endfor %}
+    {% else %}
+        <p class="muted">Нет данных по жанрам</p>
+    {% endif %}
+</section>
+
+<section class="movies-grid">
+    {% for film in return_films %}
+    <article class="movie-card">
+        <h3 class="movie-title">{{ film[0] }}</h3>
+        <div class="movie-genre">{{ film[5] }}</div>
+        <div class="movie-meta-inline">{{ film[1] }} • Рейтинг: {{ film[2] if film|length > 2 else 'N/A' }} • {{ film[3] if film|length > 3 }} мин</div>
+        <p class="movie-desc">{{ film[4] if film|length > 4 }}</p>
+    </article>
+    {% endfor %}
+</section>
+
+{% if return_films %}
+<nav class="pagination">
+    {% if page > 1 %}
+        <a href="/?page={{ page - 1 }}" class="page-btn small">←</a>
+    {% else %}
+        <span class="page-btn small disabled">←</span>
+    {% endif %}
+    <span class="page-info small">Стр. {{ page }}</span>
+    <a href="/?page={{ page + 1 }}" class="page-btn small">→</a>
+</nav>
+{% endif %}
+
+{% endblock %}

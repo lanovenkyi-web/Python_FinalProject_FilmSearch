@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="results-top">
+    <h2>Результаты: {{ search_term or 'Поиск' }} {% if total_count is defined %}{% endif %}</h2>
+    {% if total_count is defined %}
+        <div class="muted">Найдено фильмов: {{ total_count }} шт.</div>
+    {% endif %}
+    <a class="btn-primary small" href="/">На главную</a>
+</div>
+
+<section class="results-grid">
+    {% if results %}
+        {% for film in results %}
+            <article class="movie-card">
+                <h3 class="movie-title">{{ film[0] }}</h3>
+                <div class="movie-genre">{{ film[5] }}</div>
+                <div class="movie-meta-inline">{{ film[1] }} • Рейтинг: {{ film[2] if film|length > 2 else 'N/A' }} • {{ film[3] if film|length > 3 }} мин</div>
+                <p class="movie-desc">{{ film[4] if film|length > 4 }}</p>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p class="muted">Ничего не найдено</p>
+    {% endif %}
+</section>
+
+{% if results %}
+<nav class="pagination">
+    {% if page > 1 %}
+        {% if search_term and 'Фильтр:' not in search_term and 'Жанр:' not in search_term %}
+            <a href="/search_title?page={{ page - 1 }}&title={{ search_term or '' }}" class="page-btn small">←</a>
+        {% elif 'Жанр:' in search_term %}
+            {% set genre_name = (search_term or '').replace('Жанр: ', '').split(' ')[0] %}
+            <a href="/genre/{{ genre_name }}?page={{ page - 1 }}&year_from={{ year_from or '' }}&year_to={{ year_to or '' }}" class="page-btn small">←</a>
+        {% else %}
+            <a href="/search_filter?page={{ page - 1 }}&category={{ category or '' }}&year_from={{ year_from or '' }}&year_to={{ year_to or '' }}" class="page-btn small">←</a>
+        {% endif %}
+    {% else %}
+        <span class="page-btn small disabled">←</span>
+    {% endif %}
+    <span class="page-info small">Стр. {{ page }}</span>
+    {% if search_term and 'Фильтр:' not in search_term and 'Жанр:' not in search_term %}
+        {% if results|length == 10 %}
+            <a href="/search_title?page={{ page + 1 }}&title={{ search_term or '' }}" class="page-btn small">→</a>
+        {% else %}
+            <span class="page-btn small disabled">→</span>
+        {% endif %}
+    {% elif 'Жанр:' in search_term %}
+        {% set genre_name = (search_term or '').replace('Жанр: ', '').split(' ')[0] %}
+        {% if results|length == 10 %}
+            <a href="/genre/{{ genre_name }}?page={{ page + 1 }}&year_from={{ year_from or '' }}&year_to={{ year_to or '' }}" class="page-btn small">→</a>
+        {% else %}
+            <span class="page-btn small disabled">→</span>
+        {% endif %}
+    {% else %}
+        {% if results|length == 10 %}
+            <a href="/search_filter?page={{ page + 1 }}&category={{ category or '' }}&year_from={{ year_from or '' }}&year_to={{ year_to or '' }}" class="page-btn small">→</a>
+        {% else %}
+            <span class="page-btn small disabled">→</span>
+        {% endif %}
+    {% endif %}
+</nav>
+{% endif %}
+
+{% endblock %}

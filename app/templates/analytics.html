@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="analytics-page">
+    <section class="analytics-trends">
+        <h3>Тренды</h3>
+        <ul id="trends-list">
+            {% for q in popular %}
+            <li class="trend-item">{{ q.query }} — {{ q.count }} запросов</li>
+            {% endfor %}
+        </ul>
+    </section>
+    
+    <section class="analytics-recent">
+        <h3>История (5 последних уникальных запросов)</h3>
+        <ul id="recent-list">
+            {% for r in recent %}
+            <li class="recent-item">{{ r }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+
+<script>
+// Автообновление данных каждые 5 секунд
+async function fetchAnalytics() {
+    try {
+        const res = await fetch('/analytics/data');
+        const data = await res.json();
+        const trendsEl = document.getElementById('trends-list');
+        const recentEl = document.getElementById('recent-list');
+        
+        trendsEl.innerHTML = '';
+        data.trends.forEach(t => {
+            const li = document.createElement('li');
+            li.className = 'trend-item';
+            li.textContent = `${t.query || 'Запрос'} — ${t.count || 0} запросов`;
+            trendsEl.appendChild(li);
+        });
+        
+        recentEl.innerHTML = '';
+        data.recent.forEach(r => {
+            const li = document.createElement('li');
+            li.className = 'recent-item';
+            li.textContent = r;
+            recentEl.appendChild(li);
+        });
+    } catch (err) {
+        console.error('Ошибка при получении аналитики', err);
+    }
+}
+
+// Начальный вызов
+fetchAnalytics();
+// Повторяем каждые 5 секунд
+setInterval(fetchAnalytics, 5000);
+</script>
+{% endblock %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>The Movie Archive</title>
+</head>
+<body class="app-bg">
+<header class="site-header">
+    <div class="container header-inner">
+        <a class="logo" href="/">The Movie Archive</a>
+        <form action="/search_title" method="post" class="search-form">
+            <input name="title" class="search-input" type="search" placeholder="Поиск по названию" required>
+            <button class="btn-primary small" type="submit">🔍</button>
+        </form>
+        <form action="/search_filter" method="post" class="search-form" id="filter-form">
+            <select name="category" class="genre-select" onchange="this.form.submit()">
+                <option value="">Все жанры</option>
+                {% if return_categories %}
+                    {% for cat in return_categories %}
+                        <option value="{{ cat[0] }}">{{ cat[0] }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <input name="year_from" type="number" class="year-input" placeholder="Год от" min="1900" max="2100" {% if min_year %}value="{{ min_year }}"{% endif %}>
+            <input name="year_to" type="number" class="year-input" placeholder="Год до" min="1900" max="2100" {% if max_year %}value="{{ max_year }}"{% endif %}>
+            <button class="btn-primary" type="submit">Фильтровать</button>
+        </form>
+        <a class="btn-analytics" href="/analytics">История и Тренды</a>
+    </div>
+</header>
+
+<main class="container main-content">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- <footer class="site-footer">
+    <div class="container">© The Movie Archive</div>
+</footer> -->
+</body>
+</html>
