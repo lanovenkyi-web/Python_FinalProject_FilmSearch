@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 
-from databases.db_mysql import (
+from app.databases.db_mysql import (
     search_by_title, search_genre_year, new_films,
     count_films_by_title, count_films_by_genre_year
 )
-from databases.db_mongo import save_search_query
+from app.databases.db_mongo import save_search_query
 from app.utils.helpers import get_common_data
 from app.utils.validators import (
     validate_year, validate_page_param, 

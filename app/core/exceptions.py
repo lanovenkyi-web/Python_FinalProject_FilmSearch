@@ -1,10 +1,9 @@
 from fastapi import Request
 from fastapi.templating import Jinja2Templates
-from typing import Optional, Dict, Any
 
 from app.core.templates import templates
 from app.utils.helpers import get_common_data
-from databases.db_mysql import new_films
+from app.databases.db_mysql import new_films
 
 
 def render_error_page(

@@ -1,4 +1,4 @@
-from .main import router as main_router
+from .home import router as main_router
 from .search import router as search_router
 from .analytics import router as analytics_router
 from .static import router as static_router

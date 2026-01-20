@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 
-from databases.db_mysql import new_films
+from app.databases.db_mysql import new_films
 from app.utils.helpers import get_common_data
 from app.core.logging import get_logger
 from app.core.exceptions import handle_route_error

@@ -1,5 +1,5 @@
-from databases.db_mysql import get_categories_with_stats, get_year_range
-from databases.db_mongo import save_search_query, get_popular_queries, get_recent_queries
+from app.databases.db_mysql import get_categories_with_stats, get_year_range
+from app.databases.db_mongo import get_popular_queries, get_recent_queries
 
 
 def get_common_data():

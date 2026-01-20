@@ -15,7 +15,7 @@
             <button class="btn-primary small" type="submit">🔍</button>
         </form>
         <form action="/search_filter" method="post" class="search-form" id="filter-form">
-            <select name="category" class="genre-select" onchange="this.form.submit()">
+            <select name="category" class="genre-select">
                 <option value="">Все жанры</option>
                 {% if return_categories %}
                     {% for cat in return_categories %}

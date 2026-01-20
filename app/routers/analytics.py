@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 
-from databases.db_mongo import get_popular_queries, get_recent_queries
+from app.databases.db_mongo import get_popular_queries, get_recent_queries
 from app.utils.helpers import get_common_data
 from app.core.logging import get_logger
 from app.core.exceptions import handle_route_error
