@@ -109,7 +109,6 @@ uvicorn main:app --reload
 final_project_front/
 ├── main.py                     # Точка входа приложения
 ├── requirements.txt            # Зависимости Python
-├── .env.example               # Шаблон конфигурации
 ├── README.md                  # Документация
 ├── app/
 │   ├── core/                  # Ядро приложения
