@@ -33,7 +33,7 @@ def save_search_query(query: str):
 
 
 def get_popular_queries(limit: int = 5):
-    """Возвращает самые популярные поисковые запросы по количеству использований"""
+    """Возвращаем самые популярные поисковые запросы по количеству использований"""
     try:
         cursor = db_edit[COLLECTION_NAME].find().sort("count", -1).limit(limit)
         results = []
