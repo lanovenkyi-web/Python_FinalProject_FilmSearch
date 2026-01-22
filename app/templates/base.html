@@ -23,8 +23,10 @@
                     {% endfor %}
                 {% endif %}
             </select>
-            <input name="year_from" type="number" class="year-input" placeholder="Год от" min="1900" max="2100" {% if min_year %}value="{{ min_year }}"{% endif %}>
-            <input name="year_to" type="number" class="year-input" placeholder="Год до" min="1900" max="2100" {% if max_year %}value="{{ max_year }}"{% endif %}>
+            <input name="year_from" type="number" class="year-input" placeholder="Год от" min="1900" max="2100"
+                   {% if min_year %}value="{{ min_year }}"{% endif %}>
+            <input name="year_to" type="number" class="year-input" placeholder="Год до" min="1900" max="2100"
+                   {% if max_year %}value="{{ max_year }}"{% endif %}>
             <button class="btn-primary" type="submit">Фильтровать</button>
         </form>
         <a class="btn-analytics" href="/analytics">История и Тренды</a>

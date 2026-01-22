@@ -33,11 +33,13 @@ def analytics_data(limit: int = 5):
         limit = min(max(1, int(limit)), 100) if isinstance(limit, int) else 5
         trends = get_popular_queries(limit)
         recent = get_recent_queries(5)
-        
         return JSONResponse({
             "trends": trends,
             "recent": recent
         })
     except Exception as e:
         logger.error(f"Error in analytics_data: {e}")
-        return JSONResponse({"error": "Internal Server Error", "trends": [], "recent": []}, status_code=500)
+        return JSONResponse(
+            {"error": "Internal Server Error", "trends": [], "recent": []},
+            status_code=500
+        )

@@ -18,7 +18,7 @@ async def home(request: Request, page: int = 1):
         page = validate_page_param(page)
         offset = (page - 1) * 10
         common_data = get_common_data()
-        
+
         from app.core.templates import templates
         return templates.TemplateResponse("index.html", {
             "return_films": new_films(offset),

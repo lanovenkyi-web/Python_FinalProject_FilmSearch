@@ -15,7 +15,7 @@ db_edit = db_edit["ich_edit"]
 
 
 def save_search_query(query: str):
-    """Сохраняем поисковые запросы с подщетом """
+    """Сохраняем поисковый запрос в MongoDB с подсчетом количества использований."""
     if not query or not query.strip():
         return
     clean_query = query.strip().lower()
@@ -32,10 +32,16 @@ def save_search_query(query: str):
         logger.error(f"Ошибка записи в MongoDB: {e}")
 
 
-def get_popular_queries(limit: int = 5):
-    """Возвращаем самые популярные поисковые запросы по количеству использований"""
+def get_popular_queries(
+        limit: int = 5
+):
+    """Возвращаем самые популярные поисковые запросы, отсортированные по количеству использований."""
     try:
-        cursor = db_edit[COLLECTION_NAME].find().sort("count", -1).limit(limit)
+        cursor = (
+            db_edit[COLLECTION_NAME].find()
+            .sort("count", -1)
+            .limit(limit)
+        )
         results = []
         for doc in cursor:
             if doc and "query" in doc:
@@ -49,10 +55,16 @@ def get_popular_queries(limit: int = 5):
         return []
 
 
-def get_recent_queries(limit: int = 5):
-    """Возвращает последние поисковые запросы по времени использования"""
+def get_recent_queries(
+        limit: int = 5
+):
+    """Возвращаем последние поисковые запросы, отсортированные по времени использования."""
     try:
-        cursor = db_edit[COLLECTION_NAME].find().sort("last_searched", -1).limit(limit)
+        cursor = (
+            db_edit[COLLECTION_NAME].find()
+            .sort("last_searched", -1)
+            .limit(limit)
+        )
         results = []
         for doc in cursor:
             if doc and "query" in doc:

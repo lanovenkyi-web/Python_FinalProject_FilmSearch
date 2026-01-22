@@ -22,19 +22,17 @@ def validate_search_query(query: str) -> str:
     """Валидация поискового запроса"""
     if not query or not query.strip():
         return ""
-    
+
     query = query.strip()
     if len(query) > 100:
         query = query[:100]
-    
     return query
 
 
-def validate_genre_name(genre: str) -> str:
+def validate_genre_name(genre: str | None) -> str | None:
     """Валидация названия жанра"""
     if genre and not genre.strip():
         return ""
-    
     return genre.strip() if genre else None
 
 
@@ -42,8 +40,6 @@ def validate_year_range(year_from: int = None, year_to: int = None) -> tuple:
     """Валидация диапазона лет"""
     year_from = validate_year(year_from)
     year_to = validate_year(year_to)
-    
     if year_from and year_to and year_from > year_to:
         year_from, year_to = year_to, year_from
-    
     return year_from, year_to

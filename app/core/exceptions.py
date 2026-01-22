@@ -1,5 +1,5 @@
 from fastapi import Request
-from fastapi.templating import Jinja2Templates
+from typing import Any
 
 from app.core.templates import templates
 from app.utils.helpers import get_common_data
@@ -7,8 +7,8 @@ from app.databases.db_mysql import new_films
 
 
 def render_error_page(
-    request: Request, 
-    error_message: str, 
+    request: Request,
+    error_message: str,
     status_code: int = 500,
     template_name: str = "index.html"
 ):
@@ -32,8 +32,12 @@ def render_error_page(
         }, status_code=status_code)
 
 
-def handle_route_error(request: Request, e: Exception, context: str = "") -> Jinja2Templates.TemplateResponse:
-    """Универсальная обработка ошибок в роутах"""
+def handle_route_error(
+    request: Request,
+    e: Exception,
+    context: str = ""
+) -> Any:
+    """Универсальная обработка ошибок в rout"""
     from app.core.logging import get_logger
     logger = get_logger(__name__)
     logger.error(f"Error in {context}: {e}")
