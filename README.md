@@ -59,7 +59,7 @@ The Movie Archive - это веб-приложение на FastAPI, котор�
 | База данных | MySQL (основная) + MongoDB (аналитика) |
 | Python      | Python   (рекомендуется)               |
 | NoSQL       | PyMongo                                |
-| Env vars    | python-dotenv                          |
+
 
 ---
 
