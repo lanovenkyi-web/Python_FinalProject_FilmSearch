@@ -139,7 +139,9 @@ body.app-bg {
     border-radius: 12px;
     padding: 8px;
     border: 1px solid rgba(255, 255, 255, 0.03);
-    cursor: pointer
+    cursor: pointer;
+    color:rgb(212, 19, 212);
+    text-decoration: none;
 }
 
 .genre-name {
